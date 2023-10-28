@@ -1,20 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = [
-  {
-    content: 'reducer defines how redux store works',
-    important: true,
-    id: 1,
-  },
-  {
-    content: 'state of store can contain any data',
-    important: false,
-    id: 2,
-  },
-]
+// const initialState = [
+//   {
+//     content: 'reducer defines how redux store works',
+//     important: true,
+//     id: 1,
+//   },
+//   {
+//     content: 'state of store can contain any data',
+//     important: false,
+//     id: 2,
+//   },
+// ]
 
-const generateId = () =>
-  Number((Math.random() * 1000000).toFixed(0))
+// const generateId = () =>
+//   Number((Math.random() * 1000000).toFixed(0))
 
 
 const noteSlice = createSlice({
@@ -22,13 +22,10 @@ const noteSlice = createSlice({
   initialState: [],
   reducers: {
     createNote(state, action) {
-      console.log(JSON.parse(JSON.stringify(state)))    
-      const content = action.payload
-      state.push({
-        content,
-        important: false,
-        id: generateId(),
-      })
+      console.log(JSON.parse(JSON.stringify(state)))
+      state.push(action.payload)
+    
+      
     },
     toggleImportanceOf(state, action) {
       console.log(JSON.parse(JSON.stringify(state)))   
@@ -45,11 +42,15 @@ const noteSlice = createSlice({
     },
     appendNote(state, action) {
       state.push(action.payload)
+    },
+    // Let's add an action creator setNotes which can be used to directly replace the notes array.
+    setNotes(state, action) {
+      return action.payload
     }
   },
 })
 
-export const { createNote, toggleImportanceOf , appendNote} = noteSlice.actions
+export const { createNote, toggleImportanceOf , appendNote, setNotes} = noteSlice.actions
 export default noteSlice.reducer
 
 
